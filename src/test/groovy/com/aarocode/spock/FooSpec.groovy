@@ -21,20 +21,56 @@ import spock.lang.Unroll
 class FooSpec extends Specification {
     Foo foo
 
+    static int i
+    static int j
+    static int k
+
+    def setupSpec() {
+        i = 0
+        j = 0
+        k = 0
+    }
+
     def setup() {
         foo = new Foo()
+        j += 1
     }
 
     @Unroll
     void 'Validate isDivisibleBy(#value, #divisor) == #expect'() {
+        setup:
+        k += 2
+
         expect:
         foo.isDivisibleBy(value, divisor) == expect
+        i == _i
+        j == _j
+        k == _k
 
         where:
-        value | divisor || expect
-        1     | 1       || true
-        2     | 2       || true
-        3     | 2       || false
-        4     | 2       || true
+        value | divisor || expect | _i | _j | _k
+        1     | 1       || true   | 0  | 1  | 2
+        2     | 2       || true   | 0  | 2  | 4
+        3     | 2       || false  | 0  | 3  | 6
+        4     | 2       || true   | 0  | 4  | 8
+    }
+
+    @Unroll
+    void 'Validate isDivisibleBy(#value, #divisor) == #expect (again)'() {
+        setup:
+        k += 2
+
+        expect:
+        foo.isDivisibleBy(value, divisor) == expect
+        i == _i
+        j == _j
+        k == _k
+
+        where:
+        value | divisor || expect | _i | _j | _k
+        1     | 1       || true   | 0  | 1  | 2
+        2     | 2       || true   | 0  | 2  | 4
+        3     | 2       || false  | 0  | 3  | 6
+        4     | 2       || true   | 0  | 4  | 8
     }
 }
