@@ -33,6 +33,7 @@ class FooSpec extends Specification {
 
     def setup() {
         foo = new Foo()
+
         j += 1
     }
 
@@ -68,9 +69,9 @@ class FooSpec extends Specification {
 
         where:
         value | divisor || expect | _i | _j | _k
-        1     | 1       || true   | 0  | 1  | 2
-        2     | 2       || true   | 0  | 2  | 4
-        3     | 2       || false  | 0  | 3  | 6
-        4     | 2       || true   | 0  | 4  | 8
+        1     | 1       || true   | 0  | 5  | 10
+        2     | 2       || true   | 0  | 6  | 12
+        3     | 2       || false  | 0  | 7  | 14
+        4     | 2       || true   | 0  | 8  | 16
     }
 }
